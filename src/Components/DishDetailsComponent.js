@@ -6,7 +6,7 @@ export default class DishDetailsComponent extends Component {
         super(props);
 
     }
-
+    //This function is used to render dish.
     renderDish(dish) {
         if (dish != null) {
             return (<>
