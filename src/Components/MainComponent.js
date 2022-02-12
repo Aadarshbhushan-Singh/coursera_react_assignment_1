@@ -11,6 +11,7 @@ import { COMMENTS } from '../shared/comments';
 import { PROMOTIONS } from '../shared/promotions';
 import { LEADERS } from '../shared/leaders';
 import DishDetailsComponent from './DishDetailsComponent';
+import About from './AboutComponent';
 
 
 export default class MainComponent extends Component {
@@ -43,6 +44,7 @@ export default class MainComponent extends Component {
             );
           };
 
+
         return (
             <div>
                 <Header />
@@ -50,6 +52,8 @@ export default class MainComponent extends Component {
                     <Route path="/home" component={HomePage} />
                     <Route exact path="/menu" component={() => <MenuComponent dishes={this.state.dishes} />} />
                     <Route exact path='/contactus' component={Contact} />
+                    {/* Passed leader as prop to the about component. */}
+                    <Route exact path='/aboutus' component={() => <About leaders={this.state.leaders} />} /> 
                     <Route path='/menu/:dishId' component={DishWithId} />
                     <Redirect to="/home" />
                 </Switch>
