@@ -6,7 +6,6 @@ import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Home from './HomeComponent';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import Contact from './ContactComponent'
 import { COMMENTS } from '../shared/comments';
 import { PROMOTIONS } from '../shared/promotions';
 import { LEADERS } from '../shared/leaders';
@@ -15,6 +14,9 @@ import About from './AboutComponent';
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { addComment, fetchDishes } from '../redux/ActionCreators';
+import { actions } from 'react-redux-form';
+import  Contact  from './ContactComponent';
+
 
 const mapStateToProps = state => {
     return {
@@ -28,7 +30,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
 
     addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
-    fetchDishes: () => { dispatch(fetchDishes())}
+    fetchDishes: () => { dispatch(fetchDishes())},
+    resetFeedbackForm: () => { dispatch(actions.reset('feedback'))}
 
 });
 
@@ -83,7 +86,12 @@ export class MainComponent extends Component {
                 <Switch>
                     <Route path="/home" component={HomePage} />
                     <Route exact path="/menu" component={() => <MenuComponent dishes={this.state.dishes} />} />
-                    <Route exact path='/contactus' component={Contact} />
+                    <Route exact path="/contactus" component={() => <Contact 
+                                                                                resetFeedbackForm={this.props.resetFeedbackForm } 
+                                                                                postFeedback={this.props.postFeedback}
+
+                                                                            /> } 
+                            />
                     {/* Passed leader as prop to the about component. */}
                     <Route exact path='/aboutus' component={() => <About leaders={this.state.leaders} />} />
                     <Route path='/menu/:dishId' component={DishWithId} />

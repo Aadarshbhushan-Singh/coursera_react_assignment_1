@@ -4,7 +4,7 @@ import {
     Button, Row, Col, Label
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Control, LocalForm, Errors, actions } from 'react-redux-form';
 
 
 class Contact extends Component {
@@ -48,6 +48,7 @@ class Contact extends Component {
     handleSubmit(values) {
         console.log('Current State is: ' + JSON.stringify(values));
         alert('Current State is: ' + JSON.stringify(values));
+        this.props.resetFeedbackForm();
         // event.preventDefault();
     }
 
