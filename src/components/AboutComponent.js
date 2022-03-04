@@ -1,37 +1,37 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { baseUrl } from '../shared/baseUrl';
+import { Fade, Stagger } from 'react-animation-components';
 
-function RenderLeader({ leader }) {
-    return (
-        <>
-            {/* Here we are implementing leader tag */}
-            <div key={leader.id} className="col-12 mt-5">
-                <Media>
-                    <Media left middle>
-                        <Media object src={leader.image} alt={leader.name} />
-                    </Media>
-                    <Media right body className="ml-5">
-                        <Media heading>{leader.name}</Media>
-                        <p>{leader.designation}</p>
-                        <p>{leader.description}</p>
-                    </Media>
-                </Media>
-            </div>
-        </>
-    );
+function RenderLeader({leader}) {
+   return (
+      <Fade in>
+         <div key={leader.id} className="col-12 mt-5">
+            <Media tag="li">
+               <Media left middle>
+                  <Media object src={baseUrl + leader.image} alt={leader.name} />
+               </Media>
+               <Media body className="ml-5">
+                  <Media heading>{leader.name}</Media>
+                  <p>{leader.designation}</p>
+                  <p>{leader.description}</p>
+               </Media>
+            </Media>
+         </div>
+      </Fade>
+   );
 }
 
 function About(props) {
-    
-    const leaders = props.leaders.map((leader) => {
+
+    const leaders = props.leaders.leaders.map((leader) => {
         return (
-            //As said in the question, here we are using the render leader component 
-            <p><RenderLeader leader={leader} key={leader.id} /></p>
+            <RenderLeader leader={leader} />
         );
     });
 
-    return (
+    return(
         <div className="container">
             <div className="row">
                 <Breadcrumb>
@@ -41,7 +41,7 @@ function About(props) {
                 <div className="col-12">
                     <h3>About Us</h3>
                     <hr />
-                </div>
+                </div>                
             </div>
             <div className="row row-content">
                 <div className="col-12 col-md-6">
@@ -73,8 +73,8 @@ function About(props) {
                                 <p className="mb-0">You better cut the pizza in four pieces because
                                     I'm not hungry enough to eat six.</p>
                                 <footer className="blockquote-footer">Yogi Berra,
-                                    <cite title="Source Title">The Wit and Wisdom of Yogi Berra,
-                                        P. Pepe, Diversion Books, 2014</cite>
+                                <cite title="Source Title">The Wit and Wisdom of Yogi Berra,
+                                    P. Pepe, Diversion Books, 2014</cite>
                                 </footer>
                             </blockquote>
                         </CardBody>
@@ -83,14 +83,14 @@ function About(props) {
             </div>
             <div className="row row-content">
                 <div className="col-12">
-                    <h2>Corporate Leadership</h2>
+                   <h2>Corporate Leadership</h2>
                 </div>
                 <div className="col-12">
-                    <Media list>
-                        {/* //Here we are calling the leader component */}
+                   <Media list>
+                      <Stagger in>
                         {leaders}
-
-                    </Media>
+                      </Stagger>
+                   </Media> 
                 </div>
             </div>
         </div>
